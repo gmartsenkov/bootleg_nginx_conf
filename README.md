@@ -20,6 +20,7 @@ end
 
 use Bootleg.DSL
 
+config(:nginx_config_name, "app_name")
 config(:nginx_template, "./config/deploy/templates/nginx_conf.eex")
 config(:nginx_sites_available_path, "/opt/nginx/sites-available")
 config(:nginx_sites_enabled_path, "/opt/nginx/sites-enabled")

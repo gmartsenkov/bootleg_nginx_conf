@@ -4,7 +4,7 @@ defmodule BootlegNginxConf.MixProject do
   def project do
     [
       app: :bootleg_nginx_conf,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.11",
       description: "Bootleg task to upload nginx config to remote servers",
       start_permanent: Mix.env() == :prod,

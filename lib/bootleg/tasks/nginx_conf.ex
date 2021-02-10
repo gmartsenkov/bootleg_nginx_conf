@@ -8,6 +8,7 @@ defmodule Bootleg.Tasks.NginxConf do
       template_filepath = Config.get_key(:nginx_template)
       sites_available_path = Config.get_key(:nginx_sites_available_path)
       sites_enabled_path = Config.get_key(:nginx_sites_enabled_path)
+      config_name = Config.get_key(:nginx_config_name)
 
       evaled_file = EEx.eval_file(template_filepath, Config.get_all())
 
@@ -15,8 +16,10 @@ defmodule Bootleg.Tasks.NginxConf do
 
       File.write!(temp_config_file, evaled_file)
 
-      upload :app, temp_config_file, sites_available_path
-      upload :app, temp_config_file, sites_enabled_path
+      upload :app, temp_config_file, Path.join(sites_available_path, config_name)
+      remote :app do
+        "ln -fs #{Path.join(sites_available_path, config_name)} #{Path.join(sites_enabled_path, config_name)}"
+      end
 
       File.rm(temp_config_file)
 
